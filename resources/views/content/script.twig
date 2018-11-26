@@ -1,4 +1,6 @@
 <script type="text/javascript">
+    // Set input name to query, so findologic will know that this is a search input field.
+    document.querySelector('input[type=search]').name = 'query';
     (function() {
         var mainUrl = "https://cdn.findologic.com/static/{{ shopkey }}/main.js";
         var loader = document.createElement('script');
