@@ -132,6 +132,8 @@ Vue.component("item-filter-price", {
 },{"./mixins/url":9}],3:[function(require,module,exports){
 "use strict";
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _url = require("./mixins/url");
 
 var _url2 = _interopRequireDefault(_url);
@@ -156,11 +158,15 @@ Vue.component("item-filter-tag-list", {
     },
 
 
-    methods: {
+    methods: _extends({
         removeTag: function removeTag(tag) {
             this.removeSelectedFilter(tag.id, tag.name);
+        },
+        resetAllTags: function resetAllTags() {
+            this.resetAllSelectedFacets();
+            this.loadItemList();
         }
-    }
+    }, Vuex.mapMutations(["resetAllSelectedFacets"]), Vuex.mapActions(["selectFacet", "loadItemList"]))
 });
 
 },{"./mixins/url":9}],4:[function(require,module,exports){
