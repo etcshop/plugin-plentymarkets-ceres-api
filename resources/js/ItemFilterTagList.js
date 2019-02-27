@@ -22,6 +22,21 @@ Vue.component("item-filter-tag-list", {
     methods: {
         removeTag(tag) {
             this.removeSelectedFilter(tag.id, tag.name);
-        }
+        },
+
+        resetAllTags()
+        {
+            this.resetAllSelectedFacets();
+            this.loadItemList();
+        },
+
+        ...Vuex.mapMutations([
+            "resetAllSelectedFacets"
+        ]),
+
+        ...Vuex.mapActions([
+            "selectFacet",
+            "loadItemList"
+        ])
     }
 });
