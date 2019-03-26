@@ -4,10 +4,16 @@
         <div v-if="facet.type === 'price'">
             <item-filter-price :facet="facet"></item-filter-price>
         </div>
+        <div v-else-if="facet.type === 'range-slider'">
+            <item-price-slider :facet="facet"></item-price-slider>
+        </div>
+        <div v-else-if="facet.type === 'color'">
+            <item-color-tiles :facet="facet"></item-color-tiles>
+        </div>
         <div v-else-if="facet.id === 'cat'">
             <div class="form-check" v-for="value in facets" :key="value.id">
                 <div class="category-container">
-                    <input :id="'option-' + value.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(value.name)" @change="updateFacet(value.name)" :disabled="isLoading">
+                    <input :id="'option-' + value.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(value.id)" @change="updateFacet(value)" :disabled="isLoading">
                     <label :for="'option-' + value.id" class="form-check-label">
                         ${ value.name }
                     </label>
@@ -15,7 +21,7 @@
                 </div>
                 <div class="sub-category-container" v-if="value.items.length > 0">
                     <div class="form-check" v-for="subCategory in value.items" :key="subCategory.id">
-                        <input :id="'option-' + subCategory.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(getSubCategoryValue(value, subCategory))" @change="updateFacet(getSubCategoryValue(value, subCategory))" :disabled="isLoading">
+                        <input :id="'option-' + subCategory.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(subCategory.id)" @change="updateFacet(getSubCategoryValue(value, subCategory))" :disabled="isLoading">
                         <label :for="'option-' + subCategory.id" class="form-check-label">
                             ${ subCategory.name }
                         </label>
@@ -26,7 +32,7 @@
         </div>
         <div v-else>
             <div class="form-check" v-for="value in facets" :key="value.id">
-                <input :id="'option-' + value.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(value.name)" @change="updateFacet(value.name)" :disabled="isLoading">
+                <input :id="'option-' + value.id" class="form-check-input hidden-xs-up" type="checkbox" :checked="isSelected(value.id)" @change="updateFacet(value)" :disabled="isLoading">
                 <label :for="'option-' + value.id" class="form-check-label">
                     ${ value.name }
                 </label>
